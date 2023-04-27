@@ -1,0 +1,47 @@
+@import "../../../sass/abstract/variables";
+
+.btn {
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &__get-in-touch {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    background: $white-cl;
+
+    & a {
+      text-decoration: none;
+      color: $dark-blue-cl;
+    }
+
+    &:hover {
+      box-shadow: 0.3rem 0.5rem 0.7rem rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__apply-filters {
+    font-weight: 600;
+    color: $white-cl;
+    background: $light-blue-cl--1;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
+
+  &__display {
+    font-size: 2.3rem;
+    padding: 0.2rem;
+    margin-right: 0.8rem;
+    border-radius: 0.3rem;
+    color: $black-cl;
+    width: 4rem;
+    height: 4rem;
+    line-height: 3.5rem;
+  }
+}
