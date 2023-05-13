@@ -1,0 +1,29 @@
+@import "../../sass/abstract/variables";
+
+.cart-section {
+  min-height: calc(100vh - $nav-height);
+  padding: 3rem 2rem;
+
+  @media only screen and (max-width: 30em) {
+    padding: 3rem 1rem;
+  }
+}
+
+.cart {
+  &__container {
+    min-height: 70vh;
+    display: flex;
+    gap: 4rem;
+
+    @media only screen and (max-width: 48em) {
+      flex-direction: column;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex-basis: 70%;
+  }
+}

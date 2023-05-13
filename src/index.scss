@@ -1,32 +1,5 @@
 @import "./sass/abstract/variables";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
 
-*,
-*::after,
-*::before {
-  padding: 0;
-  margin: 0;
-  box-sizing: inherit;
-}
-
-html {
-  font-size: 62.5%;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-
-  @media only screen and (max-width: 64em) {
-    font-size: 50%;
-  }
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  font-size: $default-fs;
-  color: rgb(31, 31, 31);
-  line-height: 1.7;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
+@import "./sass/base/base";
+@import "./sass/base/typography";
+@import "./sass/base/utilities";

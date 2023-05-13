@@ -57,9 +57,8 @@ const ProductsList = ({ products }) => {
       ) : (
         <>
           <div className={"products__container products__container--cols"}>
-            {Object.keys(products).map((title) => {
-              const productArray = products[title];
-              return <SingleProduct productArray={productArray} />;
+            {products.map((product) => {
+              return <SingleProduct key={product.id} product={product} />;
             })}
             {products.length === 0 && <p>No Results</p>}
           </div>

@@ -16,7 +16,6 @@
     top: 0;
     left: 0;
     background-color: $white-cl;
-    box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.3);
     z-index: 100000;
   }
 
@@ -56,11 +55,11 @@
     & .logo-background {
       display: none;
       position: absolute;
-      border-top: 3rem solid $light-blue-cl--1;
-      border-right: 10rem solid transparent;
-      border-bottom: 10rem solid transparent;
-      border-left: 9rem solid transparent;
-      bottom: -13rem;
+      border-top: 3rem solid rgb(118, 183, 208);
+      border-right: 9rem solid transparent;
+      border-bottom: 0rem solid transparent;
+      border-left: 10rem solid transparent;
+      bottom: -10rem;
       left: 50%;
       width: 10rem;
       height: 10rem;
@@ -186,7 +185,7 @@
     font-size: $small-fs;
     color: $white-cl;
     position: absolute;
-    top: -0.5rem;
+    top: -1.5rem;
     right: -1.2rem;
     width: 2rem;
     height: 2rem;

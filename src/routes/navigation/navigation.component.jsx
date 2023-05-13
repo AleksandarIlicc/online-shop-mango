@@ -4,9 +4,14 @@ import { Link, Outlet } from "react-router-dom";
 import ButtonNavigation from "../../components/button/button-navigation/button-navigation.components";
 import { FaOpencart } from "react-icons/fa";
 
+import { useSelector } from "react-redux";
+import { selectCartCount } from "../../store/cart/cart.selector";
+
 import "./navigation.styles.scss";
 
 const Navigation = () => {
+  const cartCount = useSelector(selectCartCount);
+
   const [showNav, setShowNav] = useState(false);
   const [stickyNav, setStickyNav] = useState(false);
   const nav = useRef();
@@ -84,7 +89,9 @@ const Navigation = () => {
         >
           <Link to="/cart" className="cart-icon__link">
             <FaOpencart className="cart-icon__icon" />
-            <span className="cart-icon__badge">0</span>
+            <span className="cart-icon__badge">
+              {!cartCount ? 0 : cartCount}
+            </span>
           </Link>
         </div>
         {/* BUTTON NAVIGATION */}

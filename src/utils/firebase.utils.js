@@ -1,12 +1,13 @@
 import { initializeApp } from "firebase/app";
 
 import {
+  addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   query,
-  writeBatch,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -23,16 +24,13 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
+export const addCollectionAndDocuments = async (collectionKey, products) => {
   const collectionRef = collection(db, collectionKey);
-  const batch = writeBatch(db);
 
-  objectToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
-  });
+  for (let product of products) {
+    addDoc(collectionRef, product);
+  }
 
-  await batch.commit();
   console.log("done");
 };
 
@@ -42,6 +40,17 @@ export const getProductsAndDocument = async (collectionKey) => {
 
   const snapshot = await getDocs(queryObj);
 
-  const productsMap = snapshot.docs.map((docSnapshot) => docSnapshot.data());
+  const productsMap = snapshot.docs.map((docSnapshot) => {
+    return { id: docSnapshot.id, ...docSnapshot.data() };
+  });
   return productsMap;
+};
+
+export const getSingleProduct = async (collectionKey, id) => {
+  const documentRef = doc(db, collectionKey, id);
+
+  const snapshot = await getDoc(documentRef);
+  const product = { id: snapshot.id, ...snapshot.data() };
+
+  if (snapshot.exists()) return product;
 };

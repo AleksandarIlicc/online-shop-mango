@@ -1,0 +1,31 @@
+@import "../../sass/abstract/variables";
+
+.single-product-container {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - $nav-height);
+  padding: 8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn__back-arrow {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  padding: 1rem 2rem;
+  background: $light-blue-cl--1;
+  border: none;
+  border-radius: 0.5rem;
+
+  @media only screen and (max-width: 48em) {
+    top: 1.5rem;
+    padding: 0.7rem 1.5rem;
+  }
+
+  & svg {
+    font-size: 3rem;
+    color: $white-cl;
+  }
+}

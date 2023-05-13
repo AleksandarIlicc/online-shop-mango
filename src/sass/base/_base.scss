@@ -1,38 +1,32 @@
 @import "../abstract/variables";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
 
-.heading__primary {
-  font-size: 3.2rem;
-  font-weight: 400;
-  line-height: 1.2;
-  color: $white-cl;
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
 
-  &--black {
-    color: $black-cl;
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  @media only screen and (max-width: 64em) {
+    font-size: 50%;
   }
 }
 
-.heading__secondary {
-  font-size: 2.7rem;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: $dark-grey-cl;
-}
-
-.heading__tertiary {
-  font-size: 2.3rem;
-  color: $dark-grey-cl;
-  text-transform: capitalize;
-
-  @media only screen and (max-width: 30em) {
-    font-size: 1.8rem;
-  }
-}
-
-.paragraph {
+body {
+  font-family: "Poppins", sans-serif;
   font-size: $default-fs;
-  color: $dark-grey-cl;
+  color: rgb(31, 31, 31);
+  line-height: 1.7;
+}
 
-  &--header {
-    color: $white-cl;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
 }

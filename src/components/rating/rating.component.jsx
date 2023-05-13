@@ -1,5 +1,7 @@
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
+import "./rating.styles.scss";
+
 const Rating = ({ rating }) => {
   return (
     <div className="rating">
