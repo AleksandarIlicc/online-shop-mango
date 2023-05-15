@@ -16,7 +16,7 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(fetchProductsAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <section className="products-container">

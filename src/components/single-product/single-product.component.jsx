@@ -4,21 +4,46 @@ import Rating from "../rating/rating.component";
 
 import "./single-product.styles.scss";
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({
+  product,
+  productsContainerInCols,
+  productsContainerInRows,
+}) => {
   return (
-    <article className={"product product--cols"}>
+    <article
+      className={
+        productsContainerInCols
+          ? "product product--cols"
+          : productsContainerInRows
+          ? "product product--rows"
+          : "product product--cols"
+      }
+    >
       <Link to={`/product/${product.id}`}>
-        <figure className="product__img">
+        <figure
+          className={
+            productsContainerInRows
+              ? "product__img product__img--rows"
+              : "product__img"
+          }
+        >
           <img src={product.image} alt={product.name} />
         </figure>
       </Link>
-      <div className={"product__info product__info--cols"}>
+      <div
+        className={
+          productsContainerInCols
+            ? "product__info product__info--cols"
+            : productsContainerInRows
+            ? "product__info product__info--rows"
+            : "product__info product__info--cols"
+        }
+      >
         <h3 className="heading__tertiary">
           {product.name.length > 12
             ? product.name.substr(0, 12) + "..."
             : product.name}
         </h3>
-        <p className="paragraph">{product.info}</p>
         <div>
           <Rating rating={product.rating} />
           <span className="product__price">${product.price.toFixed(2)}</span>

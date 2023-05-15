@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
-import ButtonNavigation from "../../components/button/button-navigation/button-navigation.components";
+import ButtonNavigation from "../../components/button/button-navigation/button-navigation.component";
 import { FaOpencart } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
