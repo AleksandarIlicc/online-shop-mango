@@ -10,6 +10,10 @@
 
   &--rows {
     display: flex;
+
+    @media only screen and (max-width: 30em) {
+      flex-direction: column;
+    }
   }
 
   &__img {
@@ -18,6 +22,10 @@
 
     &--rows {
       width: 25rem;
+
+      @media only screen and (max-width: 30em) {
+        width: 100%;
+      }
     }
 
     & img {

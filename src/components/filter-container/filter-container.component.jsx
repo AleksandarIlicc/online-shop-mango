@@ -1,4 +1,7 @@
 import ButtonBase from "../button/button-base/button-base.component";
+
+import { FaTimes } from "react-icons/fa";
+
 import "./filter-container.styles.scss";
 
 const categories = ["bags", "hats"];
@@ -19,9 +22,15 @@ const prices = [
   },
 ];
 
-const FilterContainer = () => {
+const FilterContainer = ({ showFilterContainer, setShowFilterContainer }) => {
   return (
-    <div className={"filter-container"}>
+    <div
+      className={
+        showFilterContainer
+          ? "filter-container filter-container--show"
+          : "filter-container"
+      }
+    >
       <div>
         <h3>category</h3>
         <ul>
@@ -76,6 +85,12 @@ const FilterContainer = () => {
       <ButtonBase type="button" className="btn btn__apply-filters">
         Apply Filters
       </ButtonBase>
+
+      <FaTimes
+        style={{ color: "white" }}
+        className="icon__times"
+        onClick={() => setShowFilterContainer(false)}
+      />
     </div>
   );
 };

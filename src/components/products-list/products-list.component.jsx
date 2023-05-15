@@ -1,28 +1,37 @@
 import { useState } from "react";
 
 import SingleProduct from "../single-product/single-product.component";
-import SearchBox from "../search-box/search-box.component";
+import SearchBox from "../search-box/search-box/search-box.component";
 import Loader from "../loader/loader.component";
 import ButtonBase from "../button/button-base/button-base.component";
 
-import { FaFilter, FaTimes } from "react-icons/fa";
+import { FaFilter } from "react-icons/fa";
 import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectProductsError,
   selectProductsLoading,
 } from "../../store/products/products.selector";
 
 import "./products-list.styles.scss";
+import SearchBoxMobile from "../search-box/search-box-mobile/search-box-mobile.component";
+import { searchProducts } from "../../store/products/products.action";
 
-const ProductsList = ({ products }) => {
+const ProductsList = ({
+  products,
+  showFilterContainer,
+  setShowFilterContainer,
+}) => {
+  const dispatch = useDispatch();
   const isLoading = useSelector(selectProductsLoading);
   const error = useSelector(selectProductsError);
 
   const [showSearch, setShowSearch] = useState(false);
   const [productsContainerInCols, setProductsContainerInCols] = useState(true);
   const [productsContainerInRows, setProductsContainerInRows] = useState(false);
+
+  const productBrands = new Set(products.map((product) => product.brand));
 
   const hadnleProductsContainerInCols = () => {
     setProductsContainerInCols(true);
@@ -34,10 +43,16 @@ const ProductsList = ({ products }) => {
     setProductsContainerInCols(false);
   };
 
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    dispatch(searchProducts(query));
+  };
+
   return (
     <div className="products">
       <div className="products__header">
         <div className="products__header--left">
+          {/* SORT PRODUCTS BY OPTIONS */}
           <div style={{ display: "flex" }}>
             <label htmlFor="sort">sort by</label>
             <select name="sort" id="sort" className="select-container">
@@ -48,27 +63,34 @@ const ProductsList = ({ products }) => {
             </select>
           </div>
           <div style={{ display: "flex" }}>
+            {/* SHOW PRODUCTS IN COLS */}
             <ButtonBase
               className="btn btn__display"
               onClick={hadnleProductsContainerInCols}
             >
               <AiFillAppstore />
             </ButtonBase>
+            {/* SHOW PRODUCTS IN ROWS */}
             <ButtonBase
               className="btn btn__display"
               onClick={hadnleProductsContainerInRows}
             >
               <AiOutlineBars />
             </ButtonBase>
-            <ButtonBase className="btn__filter">
+            {/* SHOW FILTER BUTTON */}
+            <ButtonBase
+              className="btn__filter"
+              onClick={() => setShowFilterContainer(!showFilterContainer)}
+            >
               <FaFilter />
             </ButtonBase>
           </div>
         </div>
-        <div className="products__header--right">
-          <SearchBox setShowSearch={setShowSearch} />
-        </div>
+        {/* SEARCH FOR PRODUCTS  */}
+        <SearchBox setShowSearch={setShowSearch} handleSearch={handleSearch} />
       </div>
+
+      {/* RENDERING PRODUCTS OR ERROR MESSAGE */}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -99,26 +121,13 @@ const ProductsList = ({ products }) => {
         </>
       )}
 
-      {/* CREATE SEPARATE COMPONENT */}
-      <form
-        className={
-          showSearch
-            ? "search-container search-container--active"
-            : "search-container"
-        }
-      >
-        <input type="text" placeholder="search" />
-        <FaTimes className="icon__times" onClick={() => setShowSearch(false)} />
-        <div className="search-container__box mt-small">
-          <h2>Popular Search Terms</h2>
-          <ul>
-            <li>Shoes</li>
-            <li>T-shirt</li>
-            <li>Nike Cap</li>
-            <li>Adidas Jacket</li>
-          </ul>
-        </div>
-      </form>
+      {/* MOBILE SEARCH BOX */}
+      <SearchBoxMobile
+        showSearch={showSearch}
+        setShowSearch={setShowSearch}
+        productBrands={productBrands}
+        handleSearch={handleSearch}
+      />
     </div>
   );
 };

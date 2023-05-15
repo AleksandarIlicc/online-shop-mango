@@ -11,6 +11,9 @@ const fetchProductsSuccess = (productsArray) =>
 const fetchProductsError = (error) =>
   createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_ERROR, error);
 
+const searchProductsAction = (filteredProducts) =>
+  createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SEARCH, filteredProducts);
+
 export const fetchProductsAsync = () => async (dispatch) => {
   dispatch(fetchProductsStart());
   try {
@@ -18,5 +21,18 @@ export const fetchProductsAsync = () => async (dispatch) => {
     dispatch(fetchProductsSuccess(productsArray));
   } catch (error) {
     dispatch(fetchProductsError(error));
+  }
+};
+
+export const searchProducts = (query) => async (dispatch) => {
+  const products = await getProductsAndDocument("products");
+
+  if (query) {
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase())
+    );
+    dispatch(searchProductsAction(filteredProducts));
+  } else {
+    dispatch(fetchProductsSuccess(products));
   }
 };

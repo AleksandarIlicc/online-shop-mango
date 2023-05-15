@@ -1,4 +1,4 @@
-@import "../../sass/abstract/variables";
+@import "../../../sass/abstract/variables";
 
 .search {
   position: relative;
@@ -9,7 +9,7 @@
   border-radius: 2rem;
   overflow: hidden;
 
-  @media only screen and (max-width: 37.5em) {
+  @media only screen and (max-width: 33.75) {
     width: 3rem;
   }
 

@@ -15,10 +15,11 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: $white-cl;
+    background: rgba($black-cl, 0.9);
+    color: $white-cl;
     overflow: auto;
     transform: translateX(-100%);
-    z-index: 1000;
+    z-index: 100000;
 
     &--show {
       display: block;
@@ -32,6 +33,11 @@
 
   & > div > ul {
     list-style-type: none;
+    padding: 1rem 0;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
   }
 
   & h3 {
@@ -41,6 +47,10 @@
     text-transform: capitalize;
     border-bottom: 0.2rem solid $light-blue-cl--1;
     padding-bottom: 1rem;
+
+    @media only screen and (max-width: 48em) {
+      color: $white-cl;
+    }
   }
 }
 

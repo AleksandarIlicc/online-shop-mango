@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import FilterContainer from "../../components/filter-container/filter-container.component";
 import ProductsList from "../../components/products-list/products-list.component";
@@ -14,14 +14,23 @@ const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
 
+  const [showFilterContainer, setShowFilterContainer] = useState(false);
+
   useEffect(() => {
     dispatch(fetchProductsAsync());
   }, [dispatch]);
 
   return (
     <section className="products-container">
-      <FilterContainer />
-      <ProductsList products={products} />;
+      <FilterContainer
+        showFilterContainer={showFilterContainer}
+        setShowFilterContainer={setShowFilterContainer}
+      />
+      <ProductsList
+        products={products}
+        showFilterContainer={showFilterContainer}
+        setShowFilterContainer={setShowFilterContainer}
+      />
     </section>
   );
 };
