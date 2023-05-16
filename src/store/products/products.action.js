@@ -25,14 +25,18 @@ export const fetchProductsAsync = () => async (dispatch) => {
 };
 
 export const searchProducts = (query) => async (dispatch) => {
-  const products = await getProductsAndDocument("products");
-
-  if (query) {
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(query.toLowerCase())
-    );
-    dispatch(searchProductsAction(filteredProducts));
-  } else {
-    dispatch(fetchProductsSuccess(products));
+  dispatch(fetchProductsStart());
+  try {
+    const products = await getProductsAndDocument("products");
+    if (query) {
+      const filteredProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
+      dispatch(searchProductsAction(filteredProducts));
+    } else {
+      dispatch(fetchProductsSuccess(products));
+    }
+  } catch (error) {
+    dispatch(fetchProductsError(error));
   }
 };

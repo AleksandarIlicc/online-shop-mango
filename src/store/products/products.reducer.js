@@ -18,7 +18,7 @@ export const productsReducer = (state = INITIAL_PRODUCTS_STATE, action) => {
     case PRODUCTS_ACTION_TYPES.PRODUCTS_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case PRODUCTS_ACTION_TYPES.PRODUCTS_SEARCH:
-      return { ...state, products: action.payload };
+      return { ...state,isLoading: false, products: action.payload };
     default:
       return state;
   }
