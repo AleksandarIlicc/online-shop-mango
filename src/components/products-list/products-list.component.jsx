@@ -14,15 +14,15 @@ import {
   selectProductsLoading,
 } from "../../store/products/products.selector";
 
-import "./products-list.styles.scss";
 import SearchBoxMobile from "../search-box/search-box-mobile/search-box-mobile.component";
-import { searchProducts } from "../../store/products/products.action";
+import {
+  searchProducts,
+  sortProducts,
+} from "../../store/products/products.action";
 
-const ProductsList = ({
-  products,
-  showFilterContainer,
-  setShowFilterContainer,
-}) => {
+import "./products-list.styles.scss";
+
+const ProductsList = ({ products, openFilterContainer }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectProductsLoading);
   const error = useSelector(selectProductsError);
@@ -48,6 +48,9 @@ const ProductsList = ({
     dispatch(searchProducts(query));
   };
 
+  const sortProductsBySelectOptions = (e) =>
+    dispatch(sortProducts(e.target.value));
+
   return (
     <div className="products">
       <div className="products__header">
@@ -55,11 +58,16 @@ const ProductsList = ({
           {/* SORT PRODUCTS BY OPTIONS */}
           <div style={{ display: "flex" }}>
             <label htmlFor="sort">sort by</label>
-            <select name="sort" id="sort" className="select-container">
+            <select
+              name="sort"
+              id="sort"
+              className="select-container"
+              onChange={sortProductsBySelectOptions}
+            >
               <option value="lowest">Price: Low to High</option>
               <option value="highest">Price: High to Low</option>
               <option value="name-a">a - z</option>
-              <option value="name-z">z - a</option>s
+              <option value="name-z">z - a</option>
             </select>
           </div>
           <div style={{ display: "flex" }}>
@@ -78,10 +86,7 @@ const ProductsList = ({
               <AiOutlineBars />
             </ButtonBase>
             {/* SHOW FILTER BUTTON */}
-            <ButtonBase
-              className="btn__filter"
-              onClick={() => setShowFilterContainer(!showFilterContainer)}
-            >
+            <ButtonBase className="btn__filter" onClick={openFilterContainer}>
               <FaFilter />
             </ButtonBase>
           </div>
@@ -111,6 +116,7 @@ const ProductsList = ({
                 <SingleProduct
                   key={product.id}
                   product={product}
+                  products={products}
                   productsContainerInCols={productsContainerInCols}
                   productsContainerInRows={productsContainerInRows}
                 />

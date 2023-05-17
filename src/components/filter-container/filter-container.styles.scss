@@ -1,12 +1,13 @@
 @import "../../sass/abstract/variables";
 
 .filter-container {
-  height: fit-content;
+  height: calc(100vh - $nav-height);
   flex-basis: 25%;
   position: sticky;
   top: $nav-height;
   left: 0;
   padding: 3rem;
+  overflow-y: scroll;
 
   @media only screen and (max-width: 48em) {
     width: 100%;
@@ -85,6 +86,15 @@
     }
     &--pink {
       background: $pink-cl;
+    }
+    &--lightblue {
+      background: $light-blue-cl--1;
+    }
+    &--darkblue {
+      background: $dark-blue-cl--2;
+    }
+    &--brown {
+      background: $brown-cl;
     }
   }
 }

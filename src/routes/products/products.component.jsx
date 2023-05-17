@@ -16,6 +16,9 @@ const Products = () => {
 
   const [showFilterContainer, setShowFilterContainer] = useState(false);
 
+  const openFilterContainer = () => setShowFilterContainer(true);
+  const closeFilterContainer = () => setShowFilterContainer(false);
+
   useEffect(() => {
     dispatch(fetchProductsAsync());
   }, [dispatch]);
@@ -24,12 +27,11 @@ const Products = () => {
     <section className="products-container">
       <FilterContainer
         showFilterContainer={showFilterContainer}
-        setShowFilterContainer={setShowFilterContainer}
+        closeFilterContainer={closeFilterContainer}
       />
       <ProductsList
         products={products}
-        showFilterContainer={showFilterContainer}
-        setShowFilterContainer={setShowFilterContainer}
+        openFilterContainer={openFilterContainer}
       />
     </section>
   );

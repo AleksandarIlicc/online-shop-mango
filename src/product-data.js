@@ -20,7 +20,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL"],
   },
   {
-    name: " adidas grey bag",
+    name: "adidas grey bag",
     image: "/images/adidas-bag-3.jpg",
     price: 60,
     rating: 5,
@@ -30,7 +30,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL", "3XL"],
   },
   {
-    name: " nike black bag",
+    name: "nike black bag",
     image: "/images/nike-bag-1.jpg",
     price: 70,
     rating: 4.8,
@@ -40,7 +40,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL"],
   },
   {
-    name: " nike pink bag",
+    name: "nike pink bag",
     image: "/images/nike-bag-2.jpg",
     price: 85,
     rating: 5,
@@ -50,7 +50,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL", "3XL"],
   },
   {
-    name: " puma black bag",
+    name: "puma black bag",
     image: "/images/puma-bag-1.jpg",
     price: 60,
     rating: 4.8,
@@ -60,7 +60,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL", "3XL"],
   },
   {
-    name: " puma darkblue bag",
+    name: "puma darkblue bag",
     image: "/images/puma-bag-2.jpg",
     price: 65,
     rating: 3.4,
@@ -70,7 +70,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L"],
   },
   {
-    name: " puma lightblue bag",
+    name: "puma lightblue bag",
     image: "/images/puma-bag-3.jpg",
     price: 55,
     rating: 4.4,
@@ -150,7 +150,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL"],
   },
   {
-    name: "Adidas Black Jacket",
+    name: "adidas black jacket",
     image: "/images/adidas-jacket-1.jpg",
     price: 110,
     rating: 4.5,
@@ -160,7 +160,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L"],
   },
   {
-    name: "Adidas White Jacket",
+    name: "adidas white jacket",
     image: "/images/adidas-jacket-2.jpg",
     price: 80,
     rating: 3.5,
@@ -170,7 +170,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL", "3XL"],
   },
   {
-    name: "Nike Blue Jacket",
+    name: "nike blue jacket",
     image: "/images/nike-jacket-1.png",
     price: 150,
     rating: 5,
@@ -180,7 +180,7 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL"],
   },
   {
-    name: "Nike White Jacket",
+    name: "nike white jacket",
     image: "/images/nike-jacket-2.jpg",
     price: 120,
     rating: 5,
@@ -190,17 +190,17 @@ const PRODUCT_DATA = [
     size: ["S", "M", "L", "XL", "XLL", "3XL"],
   },
   {
-    name: "Nike Brown Jacket",
+    name: "nike brown jacket",
     image: "/images/nike-jacket-3.jpg",
     price: 170,
     rating: 4.5,
     category: "jacket",
     brand: "nike",
-    color: "Brown",
+    color: "brown",
     size: ["S", "M", "L", "XL", "XLL", "3XL"],
   },
   {
-    name: "Nike Olive Green Jacket",
+    name: "nike olive green jacket",
     image: "/images/nike-jacket-4.jpg",
     price: 170,
     rating: 5,

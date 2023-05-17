@@ -6,18 +6,19 @@ import "./single-product.styles.scss";
 
 const SingleProduct = ({
   product,
+  products,
   productsContainerInCols,
   productsContainerInRows,
 }) => {
   return (
     <article
-      className={
+      className={`${
         productsContainerInCols
           ? "product product--cols"
           : productsContainerInRows
           ? "product product--rows"
           : "product product--cols"
-      }
+      } ${products.length < 3 && "product__less-then-three"}`}
     >
       <Link to={`/product/${product.id}`}>
         <figure
