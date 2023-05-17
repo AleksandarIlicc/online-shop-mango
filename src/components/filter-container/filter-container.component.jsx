@@ -61,11 +61,7 @@ const FilterContainer = ({ showFilterContainer, closeFilterContainer }) => {
       <div>
         <h3>category</h3>
         <ul onClick={closeFilterContainer}>
-          <li
-            style={{ color: "black" }}
-            className="btn__category"
-            onClick={getAllProducts}
-          >
+          <li className="btn__category" onClick={getAllProducts}>
             All
           </li>
           {categories.map((category, i) => {
@@ -80,11 +76,7 @@ const FilterContainer = ({ showFilterContainer, closeFilterContainer }) => {
       <div>
         <h3>brand</h3>
         <ul onClick={closeFilterContainer}>
-          <li
-            style={{ color: "black" }}
-            className="btn__category"
-            onClick={getAllProducts}
-          >
+          <li className="btn__category" onClick={getAllProducts}>
             All
           </li>
           {brands.map((brand, i) => {
