@@ -1,3 +1,0 @@
-export const CART_ACTION_TYPES = {
-  CART_SET_ITEM: "CART_SET_ITEM",
-};

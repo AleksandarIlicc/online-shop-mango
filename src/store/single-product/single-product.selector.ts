@@ -1,6 +1,10 @@
 import { createSelector } from "reselect";
+import { InitialSingleProductStateType } from "./single-product.reducer";
+import { RootState } from "../store";
 
-const selectSingleProductReducer = (state) => state.singleProduct;
+const selectSingleProductReducer = (
+  state: RootState
+): InitialSingleProductStateType => state.singleProduct;
 
 export const selectSingleProduct = createSelector(
   [selectSingleProductReducer],

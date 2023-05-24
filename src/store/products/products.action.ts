@@ -8,7 +8,6 @@ import { PRODUCTS_ACTION_TYPES, Product } from "./products.types";
 
 import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../store";
-import { AnyAction } from "redux";
 
 type FetchProductsStartType = Action<PRODUCTS_ACTION_TYPES.PRODUCTS_START>;
 
@@ -22,30 +21,53 @@ type FetchProductsErrorType = ActionWithPayload<
   Error
 >;
 
-const fetchProductsStart = (): FetchProductsStartType =>
+type SearchProductsActionType = ActionWithPayload<
+  PRODUCTS_ACTION_TYPES.PRODUCTS_SEARCH_AND_FILTER,
+  Product[]
+>;
+
+type FilterProductsByPriceActionType = ActionWithPayload<
+  PRODUCTS_ACTION_TYPES.PRODUCTS_FILTER_BY_PRICE,
+  Product[]
+>;
+
+type SortProductsActionType = ActionWithPayload<
+  PRODUCTS_ACTION_TYPES.PRODUCTS_SORT,
+  Product[]
+>;
+
+export type ProductsAction =
+  | FetchProductsStartType
+  | FetchProductsSuccessType
+  | FetchProductsErrorType
+  | SearchProductsActionType
+  | FilterProductsByPriceActionType
+  | SortProductsActionType;
+
+const fetchProductsStart = (): ProductsAction =>
   createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_START);
 
-const fetchProductsSuccess = (
-  productsArray: Product[]
-): FetchProductsSuccessType =>
+const fetchProductsSuccess = (productsArray: Product[]): ProductsAction =>
   createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SUCCESS, productsArray);
 
-const fetchProductsError = (error: Error): FetchProductsErrorType =>
+const fetchProductsError = (error: Error): ProductsAction =>
   createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_ERROR, error);
 
-const searchProductsAction = (searchedProducts: Product[]) =>
+const searchProductsAction = (searchedProducts: Product[]): ProductsAction =>
   createAction(
     PRODUCTS_ACTION_TYPES.PRODUCTS_SEARCH_AND_FILTER,
     searchedProducts
   );
 
-const filterProductsByPriceAction = (filteredProducts: Product[]) =>
+const filterProductsByPriceAction = (
+  filteredProducts: Product[]
+): ProductsAction =>
   createAction(
     PRODUCTS_ACTION_TYPES.PRODUCTS_FILTER_BY_PRICE,
     filteredProducts
   );
 
-const sortProductsAction = (sortedProducts: Product[]) =>
+const sortProductsAction = (sortedProducts: Product[]): ProductsAction =>
   createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SORT, sortedProducts);
 
 const applySearching =
@@ -94,7 +116,8 @@ const applySorting =
   };
 
 export const fetchProductsAsync =
-  () => async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+  () =>
+  async (dispatch: ThunkDispatch<RootState, undefined, ProductsAction>) => {
     dispatch(fetchProductsStart());
 
     try {
@@ -107,7 +130,7 @@ export const fetchProductsAsync =
 
 export const searchProducts =
   (query: string) =>
-  async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+  async (dispatch: ThunkDispatch<RootState, undefined, ProductsAction>) => {
     let searchedProducts = [] as Product[];
 
     dispatch(fetchProductsStart());
@@ -129,7 +152,7 @@ export const searchProducts =
 
 export const filterProductsByPrice =
   (price: string) =>
-  async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+  async (dispatch: ThunkDispatch<RootState, undefined, ProductsAction>) => {
     let filteredProducts = [] as Product[];
 
     dispatch(fetchProductsStart());
@@ -146,7 +169,7 @@ export const filterProductsByPrice =
 
 export const sortProducts =
   (sortBy: string) =>
-  async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+  async (dispatch: ThunkDispatch<RootState, undefined, ProductsAction>) => {
     let sortedProducts = [] as Product[];
 
     dispatch(fetchProductsStart());

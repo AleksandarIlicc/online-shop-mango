@@ -1,5 +1,5 @@
-import { AnyAction } from "redux";
 import { PRODUCTS_ACTION_TYPES, Product } from "./products.types";
+import { ProductsAction } from "./products.action";
 
 export type InitialProductsStateType = {
   products: Product[];
@@ -15,7 +15,7 @@ const INITIAL_PRODUCTS_STATE: InitialProductsStateType = {
 
 export const productsReducer = (
   state = INITIAL_PRODUCTS_STATE,
-  action: AnyAction
+  action: ProductsAction
 ): InitialProductsStateType => {
   switch (action.type) {
     case PRODUCTS_ACTION_TYPES.PRODUCTS_START:
