@@ -10,7 +10,7 @@ const ButtonBase: React.FC<ButtonBaseType> = ({
   children,
   className,
   ...otherProps
-}) => {
+}): JSX.Element => {
   return (
     <button className={className} {...otherProps}>
       {children}
