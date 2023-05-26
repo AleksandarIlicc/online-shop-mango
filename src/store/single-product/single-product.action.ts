@@ -2,6 +2,7 @@ import {
   Action,
   ActionWithPayload,
   createAction,
+  withMatcher,
 } from "../../utils/reducer.utils";
 import { Product } from "../products/products.types";
 import { SINGLE_PRODUCT_ACTION_TYPES } from "./single-product.types";
@@ -19,16 +20,17 @@ type FetchSingleProductErrorType = ActionWithPayload<
   Error
 >;
 
-export type ProductActions =
-  | FetchSingleProductStartType
-  | FetchSingleProductSuccessType
-  | FetchSingleProductErrorType;
+export const fetchSingleProductStart = withMatcher(
+  (): FetchSingleProductStartType =>
+    createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_START)
+);
 
-export const fetchSingleProductStart = (): ProductActions =>
-  createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_START);
+export const fetchSingleProductSuccess = withMatcher(
+  (product: Product): FetchSingleProductSuccessType =>
+    createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_SUCCESS, product)
+);
 
-export const fetchSingleProductSuccess = (product: Product): ProductActions =>
-  createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_SUCCESS, product);
-
-export const fetchSingleProductError = (error: Error): ProductActions =>
-  createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_ERROR, error);
+export const fetchSingleProductError = withMatcher(
+  (error: Error): FetchSingleProductErrorType =>
+    createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_ERROR, error)
+);

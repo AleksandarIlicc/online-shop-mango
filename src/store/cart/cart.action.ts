@@ -1,4 +1,8 @@
-import { ActionWithPayload, createAction } from "../../utils/reducer.utils";
+import {
+  ActionWithPayload,
+  createAction,
+  withMatcher,
+} from "../../utils/reducer.utils";
 import { Product } from "../products/products.types";
 import { CART_ACTION_TYPES, CartItem } from "./cart.types";
 
@@ -37,8 +41,10 @@ const removeCartItem = (cart: CartItem[], productToRemove: Product) => {
 const clearItemCart = (cart: CartItem[], productToClear: Product) =>
   cart.filter((item) => item.id !== productToClear.id);
 
-const setItemToCart = (newCart: CartItem[]): SetItemToCartType =>
-  createAction(CART_ACTION_TYPES.CART_SET_ITEM, newCart);
+export const setItemToCart = withMatcher(
+  (newCart: CartItem[]): SetItemToCartType =>
+    createAction(CART_ACTION_TYPES.CART_SET_ITEM, newCart)
+);
 
 export const addItemToCart = (
   cart: CartItem[],

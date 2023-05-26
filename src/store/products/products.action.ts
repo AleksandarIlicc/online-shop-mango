@@ -3,6 +3,7 @@ import {
   createAction,
   Action,
   ActionWithPayload,
+  withMatcher,
 } from "../../utils/reducer.utils";
 import { PRODUCTS_ACTION_TYPES, Product } from "./products.types";
 
@@ -44,31 +45,41 @@ export type ProductsAction =
   | FilterProductsByPriceActionType
   | SortProductsActionType;
 
-const fetchProductsStart = (): ProductsAction =>
-  createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_START);
+export const fetchProductsStart = withMatcher(
+  (): FetchProductsStartType =>
+    createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_START)
+);
 
-const fetchProductsSuccess = (productsArray: Product[]): ProductsAction =>
-  createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SUCCESS, productsArray);
+export const fetchProductsSuccess = withMatcher(
+  (productsArray: Product[]): FetchProductsSuccessType =>
+    createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SUCCESS, productsArray)
+);
 
-const fetchProductsError = (error: Error): ProductsAction =>
-  createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_ERROR, error);
+export const fetchProductsError = withMatcher(
+  (error: Error): FetchProductsErrorType =>
+    createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_ERROR, error)
+);
 
-const searchProductsAction = (searchedProducts: Product[]): ProductsAction =>
-  createAction(
-    PRODUCTS_ACTION_TYPES.PRODUCTS_SEARCH_AND_FILTER,
-    searchedProducts
-  );
+export const searchProductsAction = withMatcher(
+  (searchedProducts: Product[]): SearchProductsActionType =>
+    createAction(
+      PRODUCTS_ACTION_TYPES.PRODUCTS_SEARCH_AND_FILTER,
+      searchedProducts
+    )
+);
 
-const filterProductsByPriceAction = (
-  filteredProducts: Product[]
-): ProductsAction =>
-  createAction(
-    PRODUCTS_ACTION_TYPES.PRODUCTS_FILTER_BY_PRICE,
-    filteredProducts
-  );
+export const filterProductsByPriceAction = withMatcher(
+  (filteredProducts: Product[]): FilterProductsByPriceActionType =>
+    createAction(
+      PRODUCTS_ACTION_TYPES.PRODUCTS_FILTER_BY_PRICE,
+      filteredProducts
+    )
+);
 
-const sortProductsAction = (sortedProducts: Product[]): ProductsAction =>
-  createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SORT, sortedProducts);
+export const sortProductsAction = withMatcher(
+  (sortedProducts: Product[]): SortProductsActionType =>
+    createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SORT, sortedProducts)
+);
 
 const applySearching =
   (query: string) =>

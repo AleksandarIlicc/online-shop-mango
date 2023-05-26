@@ -1,6 +1,10 @@
-import { SINGLE_PRODUCT_ACTION_TYPES } from "./single-product.types";
 import { Product } from "../products/products.types";
-import { ProductActions } from "./single-product.action";
+import { AnyAction } from "redux";
+import {
+  fetchSingleProductError,
+  fetchSingleProductStart,
+  fetchSingleProductSuccess,
+} from "./single-product.action";
 
 export type InitialSingleProductStateType = {
   readonly product: Product | {};
@@ -16,16 +20,16 @@ const INITIAL_SINGLE_PRODUCT_STATE: InitialSingleProductStateType = {
 
 export const singleProductReducer = (
   state = INITIAL_SINGLE_PRODUCT_STATE,
-  action: ProductActions
+  action: AnyAction
 ): InitialSingleProductStateType => {
-  switch (action.type) {
-    case SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_START:
-      return { ...state, isLoading: true };
-    case SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_SUCCESS:
-      return { ...state, isLoading: false, product: action.payload };
-    case SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_ERROR:
-      return { ...state, isLoading: false, error: action.payload };
-    default:
-      return state;
+  if (fetchSingleProductStart.match(action)) {
+    return { ...state, isLoading: true };
   }
+  if (fetchSingleProductSuccess.match(action)) {
+    return { ...state, isLoading: false, product: action.payload };
+  }
+  if (fetchSingleProductError.match(action)) {
+    return { ...state, isLoading: false, error: action.payload };
+  }
+  return state;
 };
