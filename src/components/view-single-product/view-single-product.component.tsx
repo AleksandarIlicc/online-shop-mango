@@ -5,7 +5,10 @@ import Counter from "../counter/counter.component";
 import ButtonBase from "../button/button-base/button-base.component";
 
 import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+
 import {
+  SetItemToCartType,
   addItemToCart,
   removeItemFromCart,
 } from "../../store/cart/cart.action";
@@ -13,6 +16,8 @@ import { selectCart } from "../../store/cart/cart.selector";
 
 import { Product } from "src/store/products/products.types";
 import { CartItem } from "src/store/cart/cart.types";
+
+import { RootState } from "src/store/store";
 
 import "./view-single-product.styles.scss";
 
@@ -25,7 +30,8 @@ const ViewSingleProduct: React.FC<ViewSingleProductType> = ({
 }): JSX.Element => {
   const { image, name, rating, size, price } = product;
 
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<RootState, undefined, SetItemToCartType> =
+    useDispatch();
   const [selectedSize, setSelectedSize] = useState("S");
   const cart = useSelector(selectCart);
 
