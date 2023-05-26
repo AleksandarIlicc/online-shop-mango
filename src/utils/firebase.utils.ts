@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 
 import {
-  QueryDocumentSnapshot,
   addDoc,
   collection,
   doc,
@@ -56,11 +55,11 @@ export const getProductsAndDocument = async (
 export const getSingleProduct = async (
   collectionKey: string,
   id: string
-): Promise<void | QueryDocumentSnapshot<Product>> => {
+): Promise<Product | void> => {
   const documentRef = doc(db, collectionKey, id);
 
   const snapshot = await getDoc(documentRef);
   const product = { id: snapshot.id, ...snapshot.data() };
 
-  if (snapshot.exists()) return product as QueryDocumentSnapshot<Product>;
+  if (snapshot.exists()) return product as Product;
 };

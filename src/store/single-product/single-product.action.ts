@@ -20,6 +20,11 @@ type FetchSingleProductErrorType = ActionWithPayload<
   Error
 >;
 
+export type SingleProductActions =
+  | FetchSingleProductStartType
+  | FetchSingleProductSuccessType
+  | FetchSingleProductErrorType;
+
 export const fetchSingleProductStart = withMatcher(
   (): FetchSingleProductStartType =>
     createAction(SINGLE_PRODUCT_ACTION_TYPES.SINGLE_PRODUCT_START)

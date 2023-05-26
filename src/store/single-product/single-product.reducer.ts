@@ -7,13 +7,13 @@ import {
 } from "./single-product.action";
 
 export type InitialSingleProductStateType = {
-  readonly product: Product | {};
+  readonly product: Product | undefined;
   readonly isLoading: boolean;
   readonly error: Error | null;
 };
 
 const INITIAL_SINGLE_PRODUCT_STATE: InitialSingleProductStateType = {
-  product: {},
+  product: undefined,
   isLoading: true,
   error: null,
 };

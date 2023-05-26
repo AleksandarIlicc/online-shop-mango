@@ -4,13 +4,17 @@ import ButtonBase from "../button/button-base/button-base.component";
 import { FaTimes } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+
 import { selectCart } from "../../store/cart/cart.selector";
 import {
   addItemToCart,
   removeItemFromCart,
   clearItemFromCart,
+  SetItemToCartType,
 } from "../../store/cart/cart.action";
 
+import { RootState } from "src/store/store";
 import { CartItem } from "src/store/cart/cart.types";
 
 import "./single-cart-product.scss";
@@ -22,7 +26,8 @@ type SingleCartProductType = {
 const SingleCartProduct: React.FC<SingleCartProductType> = ({ product }) => {
   const { image, name, selectedSize, color, brand, price, quantity } = product;
 
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<RootState, undefined, SetItemToCartType> =
+    useDispatch();
   const cart = useSelector(selectCart);
 
   const addItemHandler = () => {
