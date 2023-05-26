@@ -11,24 +11,30 @@ import {
   clearItemFromCart,
 } from "../../store/cart/cart.action";
 
+import { CartItem } from "src/store/cart/cart.types";
+
 import "./single-cart-product.scss";
 
-const SingleCartProduct = ({ product }) => {
+type SingleCartProductType = {
+  product: CartItem;
+};
+
+const SingleCartProduct: React.FC<SingleCartProductType> = ({ product }) => {
   const { image, name, selectedSize, color, brand, price, quantity } = product;
 
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
 
   const addItemHandler = () => {
-    dispatch(addItemToCart(cart, product));
+    dispatch(addItemToCart(cart as CartItem[], product));
   };
 
   const removeItemHandler = () => {
-    dispatch(removeItemFromCart(cart, product));
+    dispatch(removeItemFromCart(cart as CartItem[], product));
   };
 
   const clearItemHandler = () => {
-    dispatch(clearItemFromCart(cart, product));
+    dispatch(clearItemFromCart(cart as CartItem[], product));
   };
 
   return (
@@ -54,7 +60,7 @@ const SingleCartProduct = ({ product }) => {
 
         <div>
           <p className="cart-product__total-price">
-            ${price.toFixed(2) * quantity}
+            ${quantity && (price * quantity).toFixed(2)}
           </p>
           <p className="cart-product__price">${price.toFixed(2)} each</p>
         </div>

@@ -2,14 +2,23 @@ import { Link } from "react-router-dom";
 
 import Rating from "../rating/rating.component";
 
+import { Product } from "src/store/products/products.types";
+
 import "./single-product.styles.scss";
 
-const SingleProduct = ({
+interface SingleProductType {
+  product: Product;
+  products: Product[];
+  productsContainerInCols: boolean;
+  productsContainerInRows: boolean;
+}
+
+const SingleProduct: React.FC<SingleProductType> = ({
   product,
   products,
   productsContainerInCols,
   productsContainerInRows,
-}) => {
+}): JSX.Element => {
   return (
     <article
       className={`${

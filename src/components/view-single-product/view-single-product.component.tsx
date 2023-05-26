@@ -11,9 +11,18 @@ import {
 } from "../../store/cart/cart.action";
 import { selectCart } from "../../store/cart/cart.selector";
 
+import { Product } from "src/store/products/products.types";
+import { CartItem } from "src/store/cart/cart.types";
+
 import "./view-single-product.styles.scss";
 
-const ViewSingleProduct = ({ product }) => {
+interface ViewSingleProductType {
+  product: Product;
+}
+
+const ViewSingleProduct: React.FC<ViewSingleProductType> = ({
+  product,
+}): JSX.Element => {
   const { image, name, rating, size, price } = product;
 
   const dispatch = useDispatch();
@@ -23,11 +32,11 @@ const ViewSingleProduct = ({ product }) => {
   const productInCart = cart.find((item) => item.id === product.id);
 
   const addItemHandler = () => {
-    dispatch(addItemToCart(cart, { ...product, selectedSize }));
+    dispatch(addItemToCart(cart as CartItem[], { ...product, selectedSize }));
   };
 
   const removeItemHandler = () => {
-    dispatch(removeItemFromCart(cart, product));
+    dispatch(removeItemFromCart(cart as CartItem[], product));
   };
 
   return (
@@ -74,7 +83,7 @@ const ViewSingleProduct = ({ product }) => {
           removeItemHandler={removeItemHandler}
         >
           <span style={{ fontSize: "3rem" }}>
-            {!productInCart?.quantity ? 0 : productInCart?.quantity}
+            {(productInCart as CartItem)?.quantity ?? 0}
           </span>
         </Counter>
 

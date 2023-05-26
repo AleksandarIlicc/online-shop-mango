@@ -4,12 +4,19 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 
 import "./counter.styles.scss";
 
-const Counter = ({
+interface CounterType {
+  children: React.ReactNode;
+  className: string;
+  removeItemHandler: () => void;
+  addItemHandler: () => void;
+}
+
+const Counter: React.FC<CounterType> = ({
   children,
   className,
   removeItemHandler,
   addItemHandler,
-}) => {
+}): JSX.Element => {
   return (
     <div className="product-counter">
       <ButtonBase className={className} onClick={removeItemHandler}>

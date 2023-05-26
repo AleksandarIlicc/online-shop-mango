@@ -3,7 +3,8 @@ import { InitialCartStateType } from "./cart.reducer";
 import { CartItem } from "./cart.types";
 import { RootState } from "../store";
 
-export const selectCartReducer = (state: RootState): InitialCartStateType => state.cart;
+export const selectCartReducer = (state: RootState): InitialCartStateType =>
+  state.cart;
 
 export const selectCart = createSelector(
   [selectCartReducer],
@@ -12,13 +13,14 @@ export const selectCart = createSelector(
 
 export const selectCartCount = createSelector([selectCart], (cart) =>
   cart.reduce((count: number, item: CartItem) => {
-    return count + item.quantity;
+    return count + (item.quantity ?? 0);
   }, 0)
 );
 
 export const selectTotalPrice = createSelector([selectCart], (cart) =>
   cart.reduce((total: number, item: CartItem) => {
-    return total + item.price * item.quantity;
+    const itemQuantity = item.quantity ?? 0;
+    return total + item.price * itemQuantity;
   }, 0)
 );
 

@@ -4,6 +4,8 @@ interface ButtonBaseType {
   children: React.ReactNode;
   className?: string;
   otherProps?: any;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 const ButtonBase: React.FC<ButtonBaseType> = ({

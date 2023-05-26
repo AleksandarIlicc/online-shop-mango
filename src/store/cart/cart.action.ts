@@ -17,7 +17,7 @@ const addCartItem = (cart: CartItem[], productToAdd: Product) => {
   if (existingItem) {
     return cart.map((item) =>
       item.id === productToAdd.id
-        ? { ...item, quantity: item.quantity + 1 }
+        ? { ...item, quantity: (item.quantity ?? 0) + 1 }
         : item
     );
   }
@@ -27,10 +27,10 @@ const addCartItem = (cart: CartItem[], productToAdd: Product) => {
 const removeCartItem = (cart: CartItem[], productToRemove: Product) => {
   const existingItem = cart.find((item) => item.id === productToRemove.id);
 
-  if (existingItem && existingItem.quantity > 1) {
+  if (existingItem && existingItem.quantity && existingItem.quantity > 1) {
     return cart.map((item) =>
       item.id === productToRemove.id
-        ? { ...item, quantity: item.quantity - 1 }
+        ? { ...item, quantity: (item.quantity ?? 0) - 1 }
         : item
     );
   }
