@@ -9,25 +9,41 @@ import { selectCartCount } from "../../store/cart/cart.selector";
 
 import "./navigation.styles.scss";
 
-const Navigation = () => {
+const Navigation: React.FC = (): JSX.Element => {
   const cartCount = useSelector(selectCartCount);
 
   const [showNav, setShowNav] = useState(false);
   const [stickyNav, setStickyNav] = useState(false);
-  const nav = useRef();
+  const nav = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const navEl = nav.current;
-    const navHeight = navEl.getBoundingClientRect().height;
 
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > navHeight) {
-        setStickyNav(true);
-      } else {
-        setStickyNav(false);
-      }
-    });
-  });
+    if (navEl) {
+      const navHeight = navEl.getBoundingClientRect().height;
+
+      const handlerScroll = () => {
+        if (window.scrollY > navHeight) {
+          setStickyNav(true);
+        } else {
+          setStickyNav(false);
+        }
+      };
+
+      window.addEventListener("scroll", handlerScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handlerScroll);
+      };
+    }
+  }, []);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLUListElement, MouseEvent>
+  ) => {
+    const target = e.target as HTMLElement;
+    target.tagName === "A" && setShowNav(false);
+  };
 
   return (
     <>
@@ -54,15 +70,7 @@ const Navigation = () => {
               ? "nav__list nav__list--sticky"
               : "nav__list"
           }
-          onClick={(e) =>
-            setShowNav(() => {
-              if (e.target.tagName === "A") {
-                return false;
-              } else {
-                return true;
-              }
-            })
-          }
+          onClick={handleNavClick}
         >
           <li>
             <Link to="/">home</Link>
@@ -90,7 +98,7 @@ const Navigation = () => {
           <Link to="/cart" className="cart-icon__link">
             <FaOpencart className="cart-icon__icon" />
             <span className="cart-icon__badge">
-              {!cartCount ? 0 : cartCount}
+              {cartCount ?? 0}
             </span>
           </Link>
         </div>
