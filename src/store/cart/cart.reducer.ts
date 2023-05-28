@@ -1,11 +1,10 @@
-import { Product } from "../products/products.types";
-
 import { AnyAction } from "redux";
 
 import { setItemToCart } from "./cart.action";
+import { CartItem } from "./cart.types";
 
 export type InitialCartStateType = {
-  cart: Product[];
+  cart: CartItem[];
 };
 
 const INITIAL_CART_STATE: InitialCartStateType = {

@@ -11,7 +11,7 @@ export type SetItemToCartType = ActionWithPayload<
   CartItem[]
 >;
 
-const addCartItem = (cart: CartItem[], productToAdd: Product) => {
+const addCartItem = (cart: CartItem[], productToAdd: Product): CartItem[] => {
   const existingItem = cart.find((item) => item.id === productToAdd.id);
 
   if (existingItem) {
@@ -24,21 +24,24 @@ const addCartItem = (cart: CartItem[], productToAdd: Product) => {
   return [...cart, { ...productToAdd, quantity: 1 }];
 };
 
-const removeCartItem = (cart: CartItem[], productToRemove: Product) => {
+const removeCartItem = (
+  cart: CartItem[],
+  productToRemove: CartItem
+): CartItem[] => {
   const existingItem = cart.find((item) => item.id === productToRemove.id);
 
-  if (existingItem && existingItem.quantity && existingItem.quantity > 1) {
-    return cart.map((item) =>
-      item.id === productToRemove.id
-        ? { ...item, quantity: (item.quantity ?? 0) - 1 }
-        : item
-    );
+  if (existingItem && existingItem.quantity === 0) {
+    return cart.filter((item) => item.id !== productToRemove.id);
   }
 
-  return cart.filter((item) => item.id !== productToRemove.id);
+  return cart.map((item) =>
+    item.id === productToRemove.id
+      ? { ...item, quantity: (item.quantity ?? 0) - 1 }
+      : item
+  );
 };
 
-const clearItemCart = (cart: CartItem[], productToClear: Product) =>
+const clearItemCart = (cart: CartItem[], productToClear: Product): CartItem[] =>
   cart.filter((item) => item.id !== productToClear.id);
 
 export const setItemToCart = withMatcher(
@@ -46,10 +49,7 @@ export const setItemToCart = withMatcher(
     createAction(CART_ACTION_TYPES.CART_SET_ITEM, newCart)
 );
 
-export const addItemToCart = (
-  cart: CartItem[],
-  productToAdd: Product
-): SetItemToCartType => {
+export const addItemToCart = (cart: CartItem[], productToAdd: Product) => {
   const newCart = addCartItem(cart, productToAdd);
   return setItemToCart(newCart);
 };
@@ -57,7 +57,7 @@ export const addItemToCart = (
 export const removeItemFromCart = (
   cart: CartItem[],
   productToRemove: Product
-): SetItemToCartType => {
+) => {
   const newCart = removeCartItem(cart, productToRemove);
   return setItemToCart(newCart);
 };
@@ -65,7 +65,7 @@ export const removeItemFromCart = (
 export const clearItemFromCart = (
   cart: CartItem[],
   productToClear: Product
-): SetItemToCartType => {
+) => {
   const newCart = clearItemCart(cart, productToClear);
   return setItemToCart(newCart);
 };
