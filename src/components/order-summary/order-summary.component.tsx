@@ -1,8 +1,21 @@
+import { CartItem } from "src/store/cart/cart.types";
 import ButtonBase from "../button/button-base/button-base.component";
 
 import "./order-summary.styles.scss";
 
-const OrderSummary = ({ cartCount, shippingPrice, totalPrice, cart }) => {
+interface OrderSummaryProps {
+  cartCount: number;
+  shippingPrice: number;
+  totalPrice: number;
+  cart: CartItem[];
+}
+
+const OrderSummary: React.FC<OrderSummaryProps> = ({
+  cartCount,
+  shippingPrice,
+  totalPrice,
+  cart,
+}) => {
   return (
     <div className="order-summary">
       <div>

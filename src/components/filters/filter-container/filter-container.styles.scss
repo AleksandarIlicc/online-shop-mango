@@ -1,4 +1,4 @@
-@import "../../sass/abstract/variables";
+@import "src/sass/abstract/variables";
 
 .filter-container {
   height: calc(100vh - $nav-height);
@@ -28,17 +28,11 @@
     }
   }
 
-  & div {
+  .show-all-products {
+    color: $light-grey-cl--1;
     margin-bottom: 2rem;
-  }
-
-  & > div > ul {
-    list-style-type: none;
-    padding: 1rem 0;
-
-    li {
-      margin-bottom: 0.5rem;
-    }
+    border-bottom: none;
+    cursor: pointer;
   }
 
   & h3 {
@@ -55,11 +49,20 @@
   }
 }
 
+.filter-list {
+  list-style-type: none;
+  padding: 1rem 0;
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+
 .color-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  padding: 2rem 0 0 0;
+  padding: 2rem 0;
 
   &__item {
     display: block;

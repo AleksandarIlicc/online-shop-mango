@@ -2,7 +2,11 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 import "./rating.styles.scss";
 
-const Rating = ({ rating }) => {
+interface RatingProps {
+  rating: number;
+}
+
+const Rating: React.FC<RatingProps> = ({ rating }) => {
   return (
     <div className="rating">
       {rating >= 1 ? (

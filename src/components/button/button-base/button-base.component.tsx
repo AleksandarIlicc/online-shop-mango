@@ -6,6 +6,8 @@ interface ButtonBaseType {
   otherProps?: any;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  key?: number;
 }
 
 const ButtonBase: React.FC<ButtonBaseType> = ({

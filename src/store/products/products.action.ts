@@ -37,13 +37,19 @@ type SortProductsActionType = ActionWithPayload<
   Product[]
 >;
 
+type ChangePaginationPageType = ActionWithPayload<
+  PRODUCTS_ACTION_TYPES.CHANGE_PAGINATION_PAGE,
+  number
+>;
+
 export type ProductsAction =
   | FetchProductsStartType
   | FetchProductsSuccessType
   | FetchProductsErrorType
   | SearchProductsActionType
   | FilterProductsByPriceActionType
-  | SortProductsActionType;
+  | SortProductsActionType
+  | ChangePaginationPageType;
 
 export const fetchProductsStart = withMatcher(
   (): FetchProductsStartType =>
@@ -79,6 +85,11 @@ export const filterProductsByPriceAction = withMatcher(
 export const sortProductsAction = withMatcher(
   (sortedProducts: Product[]): SortProductsActionType =>
     createAction(PRODUCTS_ACTION_TYPES.PRODUCTS_SORT, sortedProducts)
+);
+
+export const changePaginationPage = withMatcher(
+  (pageNumber: number): ChangePaginationPageType =>
+    createAction(PRODUCTS_ACTION_TYPES.CHANGE_PAGINATION_PAGE, pageNumber)
 );
 
 const applySearching =

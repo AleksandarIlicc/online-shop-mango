@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import headerSlider from "../../assets/header-slider";
 import {
   FaChevronUp,
   FaChevronDown,
@@ -11,9 +9,12 @@ import {
   FaFacebookF,
 } from "react-icons/fa";
 
+import ButtonBase from "../button/button-base/button-base.component";
+
+import headerSlider from "../../assets/header-slider";
+
 import "../../sass/base/_base.scss";
 import "./header.styles.scss";
-import ButtonBase from "../button/button-base/button-base.component";
 
 const Header = () => {
   const [index, setIndex] = useState(0);

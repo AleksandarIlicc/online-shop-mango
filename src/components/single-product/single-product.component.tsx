@@ -1,21 +1,19 @@
 import { Link } from "react-router-dom";
-
 import Rating from "../rating/rating.component";
-
 import { Product } from "src/store/products/products.types";
 
 import "./single-product.styles.scss";
 
 interface SingleProductType {
   product: Product;
-  products: Product[];
+  currentProducts: Product[];
   productsContainerInCols: boolean;
   productsContainerInRows: boolean;
 }
 
 const SingleProduct: React.FC<SingleProductType> = ({
   product,
-  products,
+  currentProducts,
   productsContainerInCols,
   productsContainerInRows,
 }): JSX.Element => {
@@ -27,7 +25,7 @@ const SingleProduct: React.FC<SingleProductType> = ({
           : productsContainerInRows
           ? "product product--rows"
           : "product product--cols"
-      } ${products.length < 3 && "product__less-then-three"}`}
+      } ${currentProducts.length < 3 && "product__less-then-three"}`}
     >
       <Link to={`/product/${product.id}`}>
         <figure

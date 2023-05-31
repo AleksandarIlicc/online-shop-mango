@@ -4,10 +4,14 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 20rem;
+  width: 23rem;
   height: 4rem;
   border-radius: 2rem;
   overflow: hidden;
+
+  @media only screen and (max-width: 64em) {
+    height: 5rem;
+  }
 
   @media only screen and (max-width: 33.75) {
     width: 3rem;
@@ -49,7 +53,7 @@
   }
 
   &__icon {
-    font-size: 2rem;
+    font-size: 2.5rem;
     position: absolute;
     top: 50%;
     right: 1rem;
@@ -58,9 +62,8 @@
     cursor: pointer;
     z-index: 1;
 
-    @media only screen and (max-width: 37.5em) {
+    @media only screen and (max-width: 64em) {
       font-size: 3rem;
-      right: 0;
     }
 
     &--mobile {

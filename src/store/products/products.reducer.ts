@@ -9,18 +9,23 @@ import {
   searchProductsAction,
   filterProductsByPriceAction,
   sortProductsAction,
+  changePaginationPage,
 } from "./products.action";
 
 export type InitialProductsStateType = {
   products: Product[];
   isLoading: boolean;
   error: Error | null;
+  productsPerPage: number;
+  paginationPage: number;
 };
 
 const INITIAL_PRODUCTS_STATE: InitialProductsStateType = {
   products: [],
   isLoading: true,
   error: null,
+  productsPerPage: 10,
+  paginationPage: 1,
 };
 
 export const productsReducer = (
@@ -47,6 +52,9 @@ export const productsReducer = (
   }
   if (sortProductsAction.match(action)) {
     return { ...state, isLoading: false, products: action.payload };
+  }
+  if (changePaginationPage.match(action)) {
+    return { ...state, paginationPage: action.payload };
   }
   return state;
 };

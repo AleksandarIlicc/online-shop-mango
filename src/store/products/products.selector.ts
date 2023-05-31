@@ -19,3 +19,12 @@ export const selectProductsError = createSelector(
   [selectProductsReducer],
   (productsSlice) => productsSlice.error
 );
+
+export const selectProductsPerPage = createSelector(
+  [selectProductsReducer],
+  (productsSlice) => productsSlice.productsPerPage
+);
+export const selectPaginationPage = createSelector(
+  [selectProductsReducer],
+  (productsSlice) => productsSlice.paginationPage
+);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import FilterContainer from "../../components/filter-container/filter-container.component";
+import FilterContainer from "src/components/filters/filter-container/filter-container.component";
 import ProductsList from "../../components/products-list/products-list.component";
 
 import { useDispatch, useSelector } from "react-redux";

@@ -1,37 +1,62 @@
-import { useState } from "react";
-
+import React, { useState } from "react";
+import { FaFilter } from "react-icons/fa";
+import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "src/store/store";
+import { Product } from "src/store/products/products.types";
 import SingleProduct from "../single-product/single-product.component";
 import SearchBox from "../search-box/search-box/search-box.component";
 import Loader from "../loader/loader.component";
 import ButtonBase from "../button/button-base/button-base.component";
-
-import { FaFilter } from "react-icons/fa";
-import { AiFillAppstore, AiOutlineBars } from "react-icons/ai";
-
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectProductsError,
-  selectProductsLoading,
-} from "../../store/products/products.selector";
-
 import SearchBoxMobile from "../search-box/search-box-mobile/search-box-mobile.component";
+import Pagination from "../pagination/pagination.component";
 import {
+  ProductsAction,
   searchProducts,
   sortProducts,
 } from "../../store/products/products.action";
+import {
+  selectPaginationPage,
+  selectProductsError,
+  selectProductsLoading,
+  selectProductsPerPage,
+} from "../../store/products/products.selector";
 
 import "./products-list.styles.scss";
 
-const ProductsList = ({ products, openFilterContainer }) => {
-  const dispatch = useDispatch();
+interface ProductsListProps {
+  products: Product[];
+  openFilterContainer: () => void;
+}
+
+const ProductsList: React.FC<ProductsListProps> = ({
+  products,
+  openFilterContainer,
+}) => {
+  const dispatch: ThunkDispatch<RootState, undefined, ProductsAction> =
+    useDispatch();
+
+  const productsPerPage = useSelector(selectProductsPerPage);
+  const paginationPage = useSelector(selectPaginationPage);
   const isLoading = useSelector(selectProductsLoading);
   const error = useSelector(selectProductsError);
+  const errorMessage: React.ReactNode | null =
+    error instanceof Error ? error.message : error;
 
-  const [showSearch, setShowSearch] = useState(false);
+  const [showSearchBox, setShowSearchBox] = useState(false);
   const [productsContainerInCols, setProductsContainerInCols] = useState(true);
   const [productsContainerInRows, setProductsContainerInRows] = useState(false);
 
-  const productBrands = new Set(products.map((product) => product.brand));
+  const productBrands = [...new Set(products.map((product) => product.brand))];
+
+  const indexOfLastProduct = productsPerPage * paginationPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   const hadnleProductsContainerInCols = () => {
     setProductsContainerInCols(true);
@@ -43,13 +68,17 @@ const ProductsList = ({ products, openFilterContainer }) => {
     setProductsContainerInCols(false);
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     dispatch(searchProducts(query));
   };
 
-  const sortProductsBySelectOptions = (e) =>
-    dispatch(sortProducts(e.target.value));
+  const sortProductsBySelectOptions = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const value = event.target.value;
+    dispatch(sortProducts(value));
+  };
 
   return (
     <div className="products">
@@ -92,14 +121,17 @@ const ProductsList = ({ products, openFilterContainer }) => {
           </div>
         </div>
         {/* SEARCH FOR PRODUCTS  */}
-        <SearchBox setShowSearch={setShowSearch} handleSearch={handleSearch} />
+        <SearchBox
+          setShowSearchBox={setShowSearchBox}
+          handleSearch={handleSearch}
+        />
       </div>
 
       {/* RENDERING PRODUCTS OR ERROR MESSAGE */}
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <div className="error-message">{error}</div>
+        <div className="error-message">{errorMessage}</div>
       ) : (
         <>
           <div
@@ -111,26 +143,28 @@ const ProductsList = ({ products, openFilterContainer }) => {
                 : "products__container products__container--cols"
             }
           >
-            {products.map((product) => {
+            {currentProducts.map((product) => {
               return (
                 <SingleProduct
                   key={product.id}
                   product={product}
-                  products={products}
+                  currentProducts={currentProducts}
                   productsContainerInCols={productsContainerInCols}
                   productsContainerInRows={productsContainerInRows}
                 />
               );
             })}
-            {products.length === 0 && <p>No Results</p>}
           </div>
         </>
       )}
 
+      {/* PAGINATION */}
+      <Pagination />
+
       {/* MOBILE SEARCH BOX */}
       <SearchBoxMobile
-        showSearch={showSearch}
-        setShowSearch={setShowSearch}
+        showSearchBox={showSearchBox}
+        setShowSearchBox={setShowSearchBox}
         productBrands={productBrands}
         handleSearch={handleSearch}
       />
