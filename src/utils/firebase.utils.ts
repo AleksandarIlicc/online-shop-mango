@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -22,8 +22,15 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
+const authInstance = getAuth();
+
+const googleProvider = new GoogleAuthProvider();
+
+export const signInWithGooglePopup = async () => {
+  const result = await signInWithPopup(authInstance, googleProvider);
+  console.log(result.user);
+};
 
 export const addCollectionAndDocuments = async (
   collectionKey: string,

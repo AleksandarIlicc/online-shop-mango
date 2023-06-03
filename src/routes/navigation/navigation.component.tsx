@@ -82,7 +82,7 @@ const Navigation: React.FC = (): JSX.Element => {
             <Link to="/about">about us</Link>
           </li>
           <li className="signin-link">
-            <Link to="/signin" className="signin-link__link">
+            <Link to="/auth" className="signin-link__link">
               sign in
             </Link>
           </li>
@@ -97,9 +97,7 @@ const Navigation: React.FC = (): JSX.Element => {
         >
           <Link to="/cart" className="cart-icon__link">
             <FaOpencart className="cart-icon__icon" />
-            <span className="cart-icon__badge">
-              {cartCount ?? 0}
-            </span>
+            <span className="cart-icon__badge">{cartCount ?? 0}</span>
           </Link>
         </div>
         {/* BUTTON NAVIGATION */}
