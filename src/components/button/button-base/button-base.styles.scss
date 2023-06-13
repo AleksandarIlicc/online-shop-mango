@@ -2,6 +2,7 @@
 
 .btn {
   padding: 1rem 3rem;
+  outline: none;
   border: none;
   border-radius: 2rem;
   transition: all 0.3s ease;
@@ -160,6 +161,19 @@
     &--active {
       color: $white-cl;
       background: $dark-blue-cl--1;
+    }
+  }
+
+  &__form {
+    font-weight: 600;
+    letter-spacing: 0.125rem;
+    margin-right: 1.5rem;
+    padding: 1rem 3rem;
+    background: $light-blue-cl--1;
+    color: $white-cl;
+
+    @media only screen and (max-width: 30em) {
+      padding: 1rem 2rem;
     }
   }
 }

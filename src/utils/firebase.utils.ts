@@ -1,13 +1,27 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  UserCredential,
+  User,
+  onAuthStateChanged,
+  signOut,
+  NextOrObserver,
+} from "firebase/auth";
 import {
   addDoc,
   collection,
   doc,
+  DocumentData,
+  DocumentSnapshot,
   getDoc,
   getDocs,
   getFirestore,
   query,
+  setDoc,
 } from "firebase/firestore";
 import { Product } from "src/store/products/products.types";
 
@@ -26,11 +40,12 @@ const db = getFirestore(app);
 const authInstance = getAuth();
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
 
-export const signInWithGooglePopup = async () => {
-  const result = await signInWithPopup(authInstance, googleProvider);
-  console.log(result.user);
-};
+export const signInWithGooglePopup = (): Promise<UserCredential> =>
+  signInWithPopup(authInstance, googleProvider);
 
 export const addCollectionAndDocuments = async (
   collectionKey: string,
@@ -44,6 +59,65 @@ export const addCollectionAndDocuments = async (
 
   console.log("done");
 };
+
+type AdditionalInformation = {
+  displayName?: string;
+};
+
+interface UserDocument {
+  user: User;
+  doc: DocumentSnapshot<DocumentData>;
+}
+
+export const createUserDocument = async (
+  userAuth: User | null,
+  additionalInformation = {} as AdditionalInformation
+): Promise<UserDocument | null> => {
+  if (!userAuth) return null;
+
+  const userDocRef = doc(db, "users", userAuth.uid);
+
+  const snapshot = await getDoc(userDocRef);
+
+  if (!snapshot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalInformation,
+      });
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  }
+
+  const userDoc = await getDoc(userDocRef);
+  return { user: userAuth, doc: userDoc };
+};
+
+export const signInUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+): Promise<UserCredential | undefined> =>
+  await signInWithEmailAndPassword(authInstance, email, password);
+
+export const createAuthWithEmailAndPassword = async (
+  email: string,
+  password: string
+): Promise<UserCredential | undefined> => {
+  if (!email && !password) return;
+
+  return await createUserWithEmailAndPassword(authInstance, email, password);
+};
+
+export const signOutUser = async () => await signOut(authInstance);
+
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
+  onAuthStateChanged(authInstance, callback);
 
 export const getProductsAndDocument = async (
   collectionKey: string
